@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "transform-object-rest-spread",
+    "babel-plugin-rewire",
+    "transform-async-to-generator"
+  ],
+  "presets": [
+    [
+      "env", {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ]
+}

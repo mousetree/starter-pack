@@ -1,0 +1,24 @@
+{
+  "name": "starter-pack-api",
+  "version": "1.0.1",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.16.2",
+    "pg": "7.4.1"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-plugin-rewire": "1.1.0",
+    "babel-plugin-transform-async-to-generator": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "nodemon": "1.14.12",
+    "standard": "10.0.3"
+  },
+  "scripts": {
+    "start": "nodemon src/index --exec babel-node",
+    "build": "babel src -d build --copy-files",
+    "lint": "standard"
+  }
+}
