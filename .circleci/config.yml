@@ -4,10 +4,10 @@
 #
 version: 2
 jobs:
-  build_app:
+  build:
     docker:
       - image: circleci/node:7.10
-    working_directory: ~/project/app
+    working_directory: ~/repo/app
     steps:
       - checkout
       - restore_cache:
