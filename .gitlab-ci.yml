@@ -1,42 +1,28 @@
-image: node:carbon
+image: docker:latest
 
-stages:
-  - build
-  - test
-  - deploy_staging
+# When using dind, it's wise to use the overlayfs driver for
+# improved performance.
+variables:
+  DOCKER_DRIVER: overlay2
 
-build_app:
-  script:
-    - cd app/
-    - yarn install
-  stage: build
+services:
+- docker:dind
 
-build_api:
-  script:
-    - cd api/
-    - yarn install
-  stage: build
+before_script:
+- docker info
 
-test_app:
-  script:
-    - cd app/
-    - yarn test
+test:
   stage: test
-
-test_api:
   script:
-    - cd api/
-    - echo test
-  stage: test
+  - docker build -t api-test -f api/Dockerfile ./api
+  - docker run api-test npm test
+  - docker build -t app-test -f app/Dockerfile ./app
+  - docker run app-test npm test
 
-deploy_staging_app:
+deploy:
+  stage: deploy
   script:
-    - cd app/
-    - echo deploy
-  stage: deploy_staging
-
-deploy_staging_api:
-  script:
-    - cd api/
-    - echo deploy
-  stage: deploy_staging
+  - docker tag api-test registry.gitlab.com/mousetree/starter-pack/api-test
+  - docker push registry.gitlab.com/mousetree/starter-pack/api-test
+  - docker tag app-test registry.gitlab.com/mousetree/starter-pack/app-test
+  - docker push registry.gitlab.com/mousetree/starter-pack/app-test

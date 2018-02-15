@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "nodemon src/index --exec babel-node",
+    "test": "echo test complete",
     "build": "babel src -d build --copy-files",
     "lint": "standard"
   }
