@@ -14,7 +14,7 @@ jobs:
           key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/repo
-  build_app:
+  test_app:
     docker:
       - image: circleci/node:7.10
     working_directory: ~/repo
@@ -32,7 +32,7 @@ jobs:
             - app/node_modules
           key: v1-app-dependencies-{{ checksum "app/package.json" }}
       - run: cd app && yarn test
-  build_api:
+  test_api:
       docker:
         - image: circleci/node:7.10
       working_directory: ~/repo
@@ -50,14 +50,16 @@ jobs:
               - api/node_modules
             key: v1-api-dependencies-{{ checksum "app/package.json" }}
         - run: cd app && echo hello
+  deploy_app_to_staging:
+  deploy_api_to_staging:
 workflows:
   version: 2
   build_and_test:
     jobs:
       - checkout
-      - build_app:
+      - test_app:
           requires:
             - checkout
-      - build_api:
+      - test_api:
           requires:
             - checkout
