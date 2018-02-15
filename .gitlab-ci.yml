@@ -1,0 +1,51 @@
+image: node:carbon
+
+stages:
+  - build
+  - test
+  - deploy_staging
+
+build_app:
+  script:
+    - cd app/
+    - yarn install
+  stage:
+    - build
+
+build_api:
+  script:
+    - cd api/
+    - yarn install
+  stage:
+    - build
+
+test_app:
+  script:
+    - cd app/
+    - yarn test
+  stage:
+    - test
+
+test_api:
+  script:
+    - cd api/
+    - echo test
+  stage:
+    - test
+
+deploy_staging_app:
+  script:
+    - cd app/
+    - echo deploy
+  stage:
+    - deploy_staging
+
+deploy_staging_api:
+  script:
+    - cd api/
+    - echo deploy
+  stage:
+    - deploy
+
+
+
