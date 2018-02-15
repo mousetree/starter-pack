@@ -33,14 +33,10 @@ deploy_staging_app:
   script:
     - cd app/
     - echo deploy
-  stage:
-    - deploy_staging
+  stage: deploy_staging
 
 deploy_staging_api:
   script:
     - cd api/
     - echo deploy
-  stage: deploy
-
-
-
+  stage: deploy_staging
